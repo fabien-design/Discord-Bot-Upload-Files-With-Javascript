@@ -1,0 +1,22 @@
+{
+    "name": "vendor/discordbot",
+    "require": {
+        "team-reflex/discord-php": "^7.3",
+        "react/react": "^1.4",
+        "norkunas/youtube-dl-php": "dev-master",
+        "ext-zip": "*",
+        "phpseclib/phpseclib": "^3.0",
+        "php-ffmpeg/php-ffmpeg": "^1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Vendor\\Discordbot\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "FabienRozier",
+            "email": "fabien.rozier@lyceestvincent.fr"
+        }
+    ]
+}
