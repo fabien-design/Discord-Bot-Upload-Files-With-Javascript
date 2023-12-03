@@ -239,7 +239,6 @@ function saveUploadInfo($uploadInfo) {
     file_put_contents($jsonFilePath, json_encode($existingData, JSON_PRETTY_PRINT));
 }
 
-
 ?>
 
 <!DOCTYPE html>
@@ -249,8 +248,20 @@ function saveUploadInfo($uploadInfo) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bot Discord</title>
     <link rel="stylesheet" href="src/Css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.2/dist/axios.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
 </head>
 <body>
+    <div id="modalProgressBar">
+        <div class="modalContainer">
+            <div class="container">
+               <div class="progress" id="progressBar"></div>
+               
+           </div>
+           <div id="progressBarText"></div>
+        </div>
+    </div>
     <header>
         <nav class="nav">
             <input type="checkbox" id="nav-check">
@@ -276,14 +287,40 @@ function saveUploadInfo($uploadInfo) {
     </header>
     <main>
         <h1>Discord Bot File Uploader</h1>
-        <form action="" method="post" enctype="multipart/form-data">
-            <label for="file">Choose a file (max 60MB):</label>
-            <input type="file" name="file" id="file">
-            <label for="url">Mediafire Url</label>
-            <input type="url" name="mediafire" id="mediafire">
+        <form action="" method="post" id="uploadForm" class="form-container">
+            <div class="row">
+                <label for="file">Choose a file :</label>
+                <input type="file" name="file" id="file">
+            </div>  
+            <!-- <label for="url">Mediafire Url</label>
+            <input type="url" name="mediafire" id="mediafire">  -->
+
             <button type="submit" name="submit">Upload</button>
         </form>
+<!-- 
+        <form class="form-container" enctype='multipart/form-data' id="uploadForm">
+            <div class="upload-files-container">
+                <div class="drag-file-area">
+                    <span class="material-icons-outlined upload-icon"> file_upload </span>
+                    <h3 class="dynamic-message"> Drag & drop any file here </h3>
+                    <label class="label"> or <span class="browse-files">
+                        <input type="file" name="file" id="file" class="default-file-input"/>
+                        <span class="browse-files-text">browse file</span>
+                            <span>from device</span> 
+                        </span>
+                    </label>
+                </div>
+                <span class="cannot-upload-message">
+                    <span class="material-icons-outlined">error</span>
+                    Please select a file first 
+                    <span class="material-icons-outlined cancel-alert-button">cancel</span> 
+                </span>
+                <button type="button" class="upload-button"> Upload </button>
+            </div>
+        </form> -->
+
     </main>
+    <script type="module" src="src/js/uploadFile.js" ></script>
 </body>
 </html>
 

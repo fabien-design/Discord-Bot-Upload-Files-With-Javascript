@@ -126,14 +126,17 @@ $discord->registerCommand('uploadfile', function (Message $message, $params) use
             $i = 1;
             $selectIdUser = $connexion->prepare('SELECT id, username FROM user WHERE discord_id = :id');
             $selectIdUser->bindParam(":id", $fileInfo['user_id']);
-            print_r($selectIdUser->execute());
+            $selectIdUser->execute();
             $idUser = $selectIdUser->fetch();
-            $date = new \DateTime();
+            echo "ID USER : ".$idUser['id'];
+            $date = date("Y-m-d H:i:s");
+            echo $date;
+            $channelId = $channel->id;
             $insertUser = $connexion->prepare('INSERT INTO `files_uploaded` (`name`, `extension`, `user_id`, `channel_id`,`created_at`) VALUES (:name, :ext, :user, :channel, :created_at)');
             $insertUser->bindParam(":name", $fileInfo['file_name']);
             $insertUser->bindParam(":ext", $fileInfo['file_extension']);
             $insertUser->bindParam(":user", $idUser['id']);
-            $insertUser->bindParam(":channel", $channel->id);
+            $insertUser->bindParam(":channel", $channelId);
             $insertUser->bindParam(":created_at", $date);
 
             if($insertUser->execute()){
@@ -143,10 +146,10 @@ $discord->registerCommand('uploadfile', function (Message $message, $params) use
                 foreach ($fileInfo["file_parts"] as $filePart) {
                     echo "Processing file part: $filePart\n";
 
-                    $oldFilePath = $filePart;
+                    $oldFilePath = "uploads/".$filePart;
                     
                     // Rename the file on the filesystem
-                    $newFilePath = preg_replace('/\.part\d+$/', '', $oldFilePath);
+                    $newFilePath = preg_replace('/\_part\d+$/', '', $oldFilePath);
                     rename($oldFilePath, $newFilePath);
 
                     $filePart = $newFilePath;
